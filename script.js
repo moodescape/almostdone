@@ -1,4 +1,3 @@
-```javascript
 // Load content from JSON and update meta tags
 document.addEventListener('DOMContentLoaded', function() {
     fetch('content.json')
@@ -29,6 +28,3 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error loading content:', error));
 });
-```
-
-And we need to add the script.js reference to both HTML files:
