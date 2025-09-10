@@ -1,4 +1,3 @@
-```yaml
 backend:
   name: git-gateway
   branch: main
@@ -26,4 +25,3 @@ collections:
       - { label: "Content", name: "content", widget: "markdown" }
 ```
 
-Now I need to update your existing files to integrate with the CMS. Let me modify your index.html to include the admin link:
