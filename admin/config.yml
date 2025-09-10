@@ -8,9 +8,8 @@ public_folder: "/images"
 collections:
   - name: "articles"
     label: "Articles"
-    folder: "/"
+    folder: "articles"
     extension: "json"
-    format: "json"
     create: true
     slug: "{{slug}}"
     fields:
@@ -23,5 +22,5 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Featured Image", name: "image", widget: "image" }
       - { label: "Content", name: "content", widget: "markdown" }
-```
+
 
