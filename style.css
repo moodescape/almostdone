@@ -1,4 +1,3 @@
-```css
 /* Base Styles */
 :root {
   --color-primary: #6366f1;
@@ -522,4 +521,3 @@ body {
 .also-read-container::-webkit-scrollbar {
   display: none;
 }
-```
