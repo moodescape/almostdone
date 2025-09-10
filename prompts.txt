@@ -1,0 +1,253 @@
+Create a full static blog system with Netlify CMS support.
+
+1. Add an /admin folder with:
+admin/index.html → loads Netlify CMS script.
+admin/config.yml → config for CMS.
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+Create a full static blog system with Netlify CMS support.
+1. Add an /admin folder with:
+admin/index.html → loads Netlify CMS script.
+admin/config.yml → config for CMS.
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+Create a full static blog system with Netlify CMS support.
+1. Add an /admin folder with:
+admin/index.html → loads Netlify CMS script.
+admin/config.yml → config for CMS.
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+Create a full static blog system with Netlify CMS support.
+1. Add an /admin folder with:
+admin/index.html → loads Netlify CMS script.
+admin/config.yml → config for CMS.
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+2. Articles must be stored as separate JSON files in /articles/.
+Example: /articles/the-fourth-wing.json.
+Each JSON contains:
+id (number)
+title (string)
+slug (string)
+author (string)
+date (datetime)
+category (select: books, films, anime, games)
+description (text)
+image (image url)
+content (markdown)
+
+3. config.yml should:
+use backend git-gateway (branch: main).
+point to /articles/.
+allow creating new JSON articles (slug from title).
+
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+4. Update index.html:
+load all JSON files from /articles/.
+show article cards (title, description, category, image).
+add link to /admin.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+5. Update article.html:
+load article by slug param.
+show title, author, date, image, full markdown content.
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+
+
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+
+
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+
+
+6. Remove dependency on content.json. All data must come from /articles/ folder.
+
+
+7. Make sure code is clean, error-free, and deploys correctly on Netlify + GitHub.
+
+These arrow buttons scroll through the photos like a feed and automatically adjust themselves by the number of photos
+Create a folder /articles.
+1. Create a folder /articles.
+
+
+2. Store each article as a separate JSON file in /articles/.
+Example: /articles/the-fourth-wing.json.
+Fields: id, title, slug, author, date, category, description, image, content.
+3. Delete content.json and all old .md article files.
+
+
+4. Delete extra admin.html.
+3. Delete content.json and all old .md article files.
+
+
+4. Delete extra admin.html.
+5. In /admin/ folder create:
+index.html (load Netlify CMS).
+config.yml (configure Netlify CMS to work with /articles/ and create new JSON files).
+
+Update index.html → load all articles from /articles/ and display cards (title, description, category, image).
+
+Update index.html → load all articles from /articles/ and display cards (title, description, category, image).
+
+6. Update index.html → load all articles from /articles/ and display cards (title, description, category, image).
+
+6. Update index.html → load all articles from /articles/ and display cards (title, description, category, image).
+
+6. Update index.html → load all articles from /articles/ and display cards (title, description, category, image).
+
+6. Update index.html → load all articles from /articles/ and display cards (title, description, category, image).
+
+Add a link to /admin in index.html.
+Add a link to /admin in index.html.

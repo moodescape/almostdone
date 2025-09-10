@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodscape | Discover Your Next Vibe</title>
+    <meta name="description" content="Explore articles and content that resonate with the stories you love.">
+    <meta property="og:title" content="Moodscape | Discover Your Next Vibe">
+    <meta property="og:description" content="Explore articles and content that resonate with the stories you love.">
+    <meta property="og:image" content="http://static.photos/minimal/1200x630/42">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .light {
+            background-color: ivory;
+            color: #333333;
+        }
+        .dark {
+            background-color: #333333;
+            color: #FFFFF0;
+        }
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .dark .card-hover:hover {
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.05);
+        }
+        .theme-toggle {
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+        .search-input {
+            transition: box-shadow 0.3s ease;
+        }
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.3);
+        }
+        .dark .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-ivory text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="flex items-center text-2xl font-bold playfair text-gray-800 dark:text-white">
+                    <img src="http://static.photos/minimal/32x32/42" alt="Logo" class="w-8 h-8 mr-2 rounded-full border-2 border-indigo-400">
+                    Moodescape
+                </a>
+                <nav class="hidden md:flex space-x-6 hovered-element">
+                    <a href="index.html" class="category-btn transition text-indigo-600 dark:text-indigo-300 font-medium border-b-2 border-indigo-600 dark:border-indigo-300 hovered-element" data-category="all">All</a>
+                    <a href="index.html" class="category-btn transition text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" data-category="books">Books</a>
+                    <a href="index.html" class="category-btn transition text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" data-category="films">Films/Series</a>
+                    <a href="index.html" class="category-btn transition text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" data-category="anime">Anime</a>
+                    <a href="index.html" class="category-btn text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition" data-category="games">Games</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block group hovered-element">
+                    <div class="relative w-full">
+                        <input type="text" id="header-search" placeholder="Search title and vibe" class="search-input pl-10 pr-4 py-2 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none w-64 transition-all duration-300 group-hover:w-72 group-hover:shadow-lg group-hover:border-indigo-500 dark:group-hover:border-indigo-400 hovered-element" onkeypress="if(event.key === 'Enter') { redirectToSearch(this.value); event.preventDefault(); }">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search absolute left-3 top-2.5 text-gray-400 dark:text-gray-300 transition-all duration-300 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 hovered-element" onclick="redirectToSearch(document.getElementById('header-search').value)"><circle cx="11" cy="11" r="8" class="hovered-element"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <div id="header-search-suggestions" class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg hidden max-h-60 overflow-y-auto">
+                        <div class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">Suggestions:</div>
+                        <div id="header-suggestion-items" class="divide-y divide-gray-200 dark:divide-gray-700"></div>
+                    </div>
+                </div>
+                <button class="md:hidden p-2">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-[70vh] flex items-center justify-center text-center text-white px-4" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center;">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="playfair text-4xl md:text-6xl font-bold mb-6">Discover Your Next Vibe</h1>
+            <p class="text-xl md:text-2xl mb-8">Explore articles and content that resonate with the stories you love.</p>
+            <div class="relative max-w-xl mx-auto">
+                <input type="text" id="article-search" placeholder="What did you just experience?" class="search-input w-full pl-6 pr-32 py-4 rounded-full border border-white/30 bg-white/20 focus:outline-none focus:bg-white/30 backdrop-blur-sm" autocomplete="off" onkeypress="if(event.key === 'Enter') redirectToSearch(this.value)">
+                <button onclick="redirectToSearch(document.getElementById('article-search').value)" class="absolute right-2 top-2 bg-white text-gray-800 px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">Search</button>
+                <div id="search-suggestions" class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg hidden max-h-60 overflow-y-auto">
+                    <div class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">Suggestions:</div>
+                    <div id="suggestion-items" class="divide-y divide-gray-200 dark:divide-gray-700"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16">
+        <h2 class="playfair text-3xl font-bold mb-12 text-center">Featured Articles</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 hovered-element">
+            <!-- Article Card 1 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="books">
+                <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Library" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-indigo-600 dark:text-indigo-300 font-medium">Books</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">The Fourth Wing by Rebecca Yarros</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Exploring how 19th century novels capture the human condition with poetic melancholy.</p>
+                    <a href="article1.html" class="text-indigo-600 dark:text-indigo-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 2 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="films">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cinema" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-purple-600 dark:text-purple-300 font-medium">Films</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Divergent</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">How Blade Runner 2049 and similar films create immersive dystopian atmospheres.</p>
+                    <a href="article2.html" class="text-purple-600 dark:text-purple-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 3 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="anime">
+                <img src="https://images.unsplash.com/photo-1545566237-0a2ca6bea37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Anime" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-rose-600 dark:text-rose-300 font-medium">Anime</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Attack on Titan</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Examining the atmospheric storytelling in Spirited Away and My Neighbor Totoro.</p>
+                    <a href="article3.html" class="text-rose-600 dark:text-rose-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 4 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="games">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Games" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-emerald-600 dark:text-emerald-300 font-medium">Games</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Assassin's Creed</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">How games like Limbo and Inside create tension through minimalist design.</p>
+                    <a href="article4.html" class="text-emerald-600 dark:text-emerald-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 5 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="books">
+                <img src="https://images.unsplash.com/photo-1510172951991-856a62a9e395?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Books" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-amber-600 dark:text-amber-300 font-medium">Books</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Buried by Ocean Parker</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">The delicate balance between the mundane and magical in contemporary fiction.</p>
+                    <a href="article5.html" class="text-amber-600 dark:text-amber-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 6 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="films">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cinema" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-blue-600 dark:text-blue-300 font-medium">Films</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Harry Potter</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Why the director's distinctive visual style creates such satisfying viewing experiences.</p>
+                    <a href="article6.html" class="text-blue-600 dark:text-blue-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 7 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="anime">
+                <img src="https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Anime" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-rose-600 dark:text-rose-300 font-medium">Anime</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Demon Slayer</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Exploring the breathtaking animation and emotional depth of this modern classic.</p>
+                    <a href="article7.html" class="text-rose-600 dark:text-rose-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 8 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="games">
+                <img src="https://images.unsplash.com/photo-1585773690161-7b1cd47cc3e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Games" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-emerald-600 dark:text-emerald-300 font-medium">Games</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">The Last of Us</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">How this game masterfully blends storytelling with immersive gameplay.</p>
+                    <a href="article8.html" class="text-emerald-600 dark:text-emerald-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 9 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="books">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Books" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-amber-600 dark:text-amber-300 font-medium">Books</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">The Silent Patient</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">A psychological thriller that keeps readers guessing until the final page.</p>
+                    <a href="article9.html" class="text-amber-600 dark:text-amber-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 10 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="films">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cinema" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-purple-600 dark:text-purple-300 font-medium">Films</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Inception</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Exploring the mind-bending concepts and visual spectacle of Nolan's masterpiece.</p>
+                    <a href="article10.html" class="text-purple-600 dark:text-purple-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 11 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="anime">
+                <img src="https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Anime" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-rose-600 dark:text-rose-300 font-medium">Anime</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Death Note</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">The psychological battle between Light and L that redefined the thriller genre.</p>
+                    <a href="article11.html" class="text-rose-600 dark:text-rose-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article Card 12 -->
+            <article class="card-hover bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md" data-category="games">
+                <img src="https://images.unsplash.com/photo-1585773690161-7b1cd47cc3e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Games" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="text-sm text-emerald-600 dark:text-emerald-300 font-medium">Games</span>
+                    <h3 class="playfair text-xl font-bold mt-2 mb-3">Red Dead Redemption 2</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">An epic western adventure with unparalleled attention to detail and storytelling.</p>
+                    <a href="article12.html" class="text-emerald-600 dark:text-emerald-300 font-medium flex items-center hover:underline">
+                        Read More <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <div class="flex justify-center">
+            <nav class="flex items-center space-x-2" id="pagination">
+                <button class="page-btn px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700" data-page="prev">
+                    <i data-feather="chevron-left"></i>
+                </button>
+                <button class="page-btn px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white" data-page="1">1</button>
+                <button class="page-btn px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700" data-page="2">2</button>
+                <button class="page-btn px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700" data-page="3">3</button>
+                <button class="page-btn px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700" data-page="next">
+                    <i data-feather="chevron-right"></i>
+                </button>
+            </nav>
+        </div>
+
+        <script>
+            // Pagination functionality
+            const articlesPerPage = 12;
+            const articles = document.querySelectorAll('.card-hover');
+            const totalPages = Math.ceil(articles.length / articlesPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            // Initialize pagination
+            let currentPage = 1;
+            updatePagination();
+            
+            // Add event listeners to page buttons
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const page = btn.dataset.page;
+                    
+                    if (page === 'prev' && currentPage > 1) {
+                        currentPage--;
+                    } else if (page === 'next' && currentPage < totalPages) {
+                        currentPage++;
+                    } else if (!isNaN(page)) {
+                        currentPage = parseInt(page);
+                    }
+                    
+                    updatePagination();
+                    showArticlesForPage(currentPage);
+                });
+            });
+            
+            function showArticlesForPage(page) {
+                const startIndex = (page - 1) * articlesPerPage;
+                const endIndex = startIndex + articlesPerPage;
+                
+                articles.forEach((article, index) => {
+                    if (index >= startIndex && index < endIndex) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            }
+            
+            function updatePagination() {
+                // Update active page button
+                document.querySelectorAll('.page-btn').forEach(btn => {
+                    if (btn.dataset.page == currentPage) {
+                        btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-white');
+                        btn.classList.remove('hover:bg-gray-100', 'dark:hover:bg-gray-700');
+                    } else if (!['prev', 'next'].includes(btn.dataset.page)) {
+                        btn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-white');
+                        btn.classList.add('hover:bg-gray-100', 'dark:hover:bg-gray-700');
+                    }
+                });
+                
+                // Show/hide prev/next buttons as needed
+                document.querySelector('[data-page="prev"]').style.display = currentPage === 1 ? 'none' : 'block';
+                document.querySelector('[data-page="next"]').style.display = currentPage === totalPages ? 'none' : 'block';
+            }
+            
+            // Initialize by showing first page
+            showArticlesForPage(1);
+        </script>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="playfair text-xl font-bold mb-4">Moodscape</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Discover content that resonates with your current mood and favorite stories.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Explore</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition">Books</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition">Films & Series</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition">Anime</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition">Games</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Subscribe</h4>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Get the latest mood recommendations straight to your inbox.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md border border-r-0 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:outline-none w-full">
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-md hover:bg-indigo-700 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 dark:text-gray-400 mb-4 md:mb-0">© 2025 Moodscape. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition">
+                        <i data-feather="twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition">
+                        <i data-feather="instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white transition">
+                        <i data-feather="facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check for saved user preference, if any, on load
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.classList.add(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else if (html.classList.contains('light')) {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const category = btn.dataset.category;
+                
+                // Update URL with category parameter
+                const url = new URL(window.location.href);
+                url.searchParams.set('category', category);
+                window.history.pushState({}, '', url);
+                
+                // Update active button styling
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('text-indigo-600', 'dark:text-indigo-300', 'font-medium', 'border-b-2', 'border-indigo-600', 'dark:border-indigo-300');
+                    b.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:text-gray-900', 'dark:hover:text-white');
+                });
+                
+                // Add active styles to clicked button
+                btn.classList.add('text-indigo-600', 'dark:text-indigo-300', 'font-medium', 'border-b-2', 'border-indigo-600', 'dark:border-indigo-300');
+                btn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:text-gray-900', 'dark:hover:text-white');
+                
+                // Filter articles
+                const articles = document.querySelectorAll('.card-hover');
+                articles.forEach(article => {
+                    if (category === 'all' || article.dataset.category === category) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+                
+                // Reset pagination to show filtered results
+                currentPage = 1;
+                updatePagination();
+                showArticlesForPage(currentPage);
+            });
+        });
+
+        // Check for category parameter on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            
+            if (category) {
+                // Find and click the corresponding category button
+                const categoryBtn = document.querySelector(`.category-btn[data-category="${category}"]`);
+                if (categoryBtn) {
+                    categoryBtn.click();
+                }
+            }
+        });
+
+
+        // Article search functionality
+        function searchArticles(searchTerm = null) {
+            const term = searchTerm || document.getElementById('article-search').value.toLowerCase() || document.getElementById('header-search').value.toLowerCase();
+            const articles = document.querySelectorAll('.card-hover');
+            
+            // Show all articles that match the search term
+            articles.forEach(article => {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                const description = article.querySelector('p').textContent.toLowerCase();
+                const category = article.dataset.category;
+                
+                if (term === '' || title.includes(term) || description.includes(term) || category.includes(term)) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+            
+            // Reset pagination to show all results
+            currentPage = 1;
+            updatePagination();
+            showArticlesForPage(currentPage);
+            
+            document.getElementById('search-suggestions').classList.add('hidden');
+            document.getElementById('header-search-suggestions').classList.add('hidden');
+        }
+
+        // Redirect to main page with search query
+        function redirectToSearch(searchTerm) {
+            if (searchTerm.trim() !== '') {
+                window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        // Check for search parameter on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search');
+            if (searchQuery) {
+                document.getElementById('article-search').value = decodeURIComponent(searchQuery);
+                searchArticles(decodeURIComponent(searchQuery));
+            }
+        });
+
+        // Generate search suggestions
+        function generateSuggestions(searchTerm) {
+            const suggestions = [];
+            const articles = document.querySelectorAll('.card-hover');
+            
+            articles.forEach(article => {
+                const title = article.querySelector('h3').textContent;
+                const category = article.dataset.category;
+                
+                // Show all articles that start with the search term
+                if (searchTerm.length === 1 && title.toLowerCase().startsWith(searchTerm.toLowerCase())) {
+                    suggestions.push({
+                        title: title,
+                        category: category
+                    });
+                } 
+                // As user types more, filter to only exact matches
+                else if (searchTerm.length > 1 && title.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    suggestions.push({
+                        title: title,
+                        category: category
+                    });
+                }
+            });
+
+            // Sort by closest match (starts with first, then contains)
+            suggestions.sort((a, b) => {
+                const aStartsWith = a.title.toLowerCase().startsWith(searchTerm.toLowerCase());
+                const bStartsWith = b.title.toLowerCase().startsWith(searchTerm.toLowerCase());
+                
+                if (aStartsWith && !bStartsWith) return -1;
+                if (!aStartsWith && bStartsWith) return 1;
+                return 0;
+            });
+
+            return suggestions.slice(0, 8); // Show more suggestions for better discovery
+        }
+
+        // Update suggestions dropdown
+        function updateSuggestions(searchTerm, containerId, itemsId) {
+            const suggestionsContainer = document.getElementById(containerId);
+            const suggestionItems = document.getElementById(itemsId);
+            suggestionItems.innerHTML = '';
+            
+            // Show suggestions from first character typed
+            if (searchTerm.length < 1) {
+                suggestionsContainer.classList.add('hidden');
+                return;
+            }
+
+            const suggestions = generateSuggestions(searchTerm);
+            
+            if (suggestions.length === 0) {
+                suggestionsContainer.classList.add('hidden');
+                return;
+            }
+
+            suggestions.forEach(suggestion => {
+                const suggestionElement = document.createElement('div');
+                suggestionElement.className = 'px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center justify-between';
+                suggestionElement.innerHTML = `
+                    <span>${suggestion.title}</span>
+                    <span class="text-xs px-2 py-1 rounded-full ${getCategoryColor(suggestion.category)}">${suggestion.category}</span>
+                `;
+                suggestionElement.addEventListener('click', () => {
+                    if (containerId === 'search-suggestions') {
+                        document.getElementById('article-search').value = suggestion.title;
+                        searchArticles(suggestion.title);
+                    } else {
+                        document.getElementById('header-search').value = suggestion.title;
+                        searchArticles(suggestion.title);
+                    }
+                    suggestionsContainer.classList.add('hidden');
+                });
+                suggestionItems.appendChild(suggestionElement);
+            });
+
+            suggestionsContainer.classList.remove('hidden');
+        }
+
+        function getCategoryColor(category) {
+            switch(category) {
+                case 'books': return 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200';
+                case 'films': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+                case 'anime': return 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200';
+                case 'games': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200';
+                default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
+            }
+        }
+
+        // Search input event listeners
+        const searchInput = document.getElementById('article-search');
+        const headerSearchInput = document.getElementById('header-search');
+        
+        searchInput.addEventListener('input', (e) => {
+            updateSuggestions(e.target.value, 'search-suggestions', 'suggestion-items');
+        });
+
+        headerSearchInput.addEventListener('input', (e) => {
+            updateSuggestions(e.target.value, 'header-search-suggestions', 'header-suggestion-items');
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchArticles();
+            }
+        });
+
+        headerSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchArticles();
+            }
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#search-suggestions') && e.target !== searchInput) {
+                document.getElementById('search-suggestions').classList.add('hidden');
+            }
+            if (!e.target.closest('#header-search-suggestions') && e.target !== headerSearchInput) {
+                document.getElementById('header-search-suggestions').classList.add('hidden');
+            }
+        });
+
+        // Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
+
